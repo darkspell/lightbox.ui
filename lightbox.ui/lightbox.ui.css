@@ -1,0 +1,52 @@
+/* LIGHTBOX */
+
+#lightbox {
+	text-align: center;
+}
+
+#lbLoading {
+	background-image: url(../images/loading.gif) !important;
+	background-position: center center !important;
+	background-repeat: no-repeat !important;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	position: fixed;
+	z-index: 500;
+}
+
+.ui-dialog { position: absolute;}
+
+.lightboxId .ui-dialog-titlebar { display:none }
+
+#lbCaption {
+	display: none;
+	text-align: left;
+}
+
+#prevLink, #nextLink {
+	position: absolute;
+	height: 100%;
+	width: 40%;
+	z-index: 200;
+	top: 0px;
+}
+
+#prevLink {
+	float: left;
+	left: 0px;
+}
+
+#prevLink:hover {
+	background: url(../images/previous.png) left center no-repeat;
+}
+
+#nextLink {
+	float: right;
+	right: 0px;
+}
+
+#nextLink:hover {
+	background: url(../images/next.png) right center no-repeat;
+}

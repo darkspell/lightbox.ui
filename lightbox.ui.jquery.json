@@ -1,0 +1,36 @@
+{
+    "name": "lightbox.ui",
+    "title": "jQueryUi lighbox.ui",
+    "description": "jQueryUi plugin to display a simple Lightbox",
+    "keywords": [
+        "lightbox",
+        "animation",
+        "dialog"
+    ],
+    "version": "0.0.1",
+    "author": {
+        "name": "Jochen Roth - sam.agentur",
+        "url": "https://github.com/ochorocho/lightbox.ui"
+    },
+    "maintainers": [
+        {
+            "name": "Jochen Roth",
+            "email": "rothjochen@gmail.com",
+            "url": "http://www.sam-werbeagentur.de"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/jquery/jquery-color/blob/2.1.2/MIT-LICENSE.txt"
+        }
+    ],
+    "bugs": "https://github.com/jquery/jquery-color/issues",
+    "homepage": "https://github.com/jquery/jquery-color",
+    "docs": "https://github.com/jquery/jquery-color",
+    "download": "http://code.jquery.com/#color",
+    "dependencies": {
+        "jquery": ">=1.9.1",
+        "jqueryui": ">=1.9.2"
+    }
+}
