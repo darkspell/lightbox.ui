@@ -1,0 +1,17 @@
+body {
+	text-align: center;
+}
+
+#site {
+	width: 740px;
+	margin: 20px auto;
+	text-align: left;
+}
+
+h1 {
+	font-size: 24px;
+	font-family: arial;
+	background:#c6c6c6;
+	padding: 6px 10px;
+	border-radius: 4px;
+}

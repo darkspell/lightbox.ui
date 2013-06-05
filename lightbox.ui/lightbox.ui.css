@@ -4,8 +4,12 @@
 	text-align: center;
 }
 
+#lightbox a {
+	outline: none;
+}
+
 #lbLoading {
-	background-image: url(../images/loading.gif) !important;
+	background-image: url(img/loading.gif) !important;
 	background-position: center center !important;
 	background-repeat: no-repeat !important;
 	top: 0px;
@@ -39,7 +43,7 @@
 }
 
 #prevLink:hover {
-	background: url(../images/previous.png) left center no-repeat;
+	background: url(img/previous.png) left center no-repeat;
 }
 
 #nextLink {
@@ -48,5 +52,5 @@
 }
 
 #nextLink:hover {
-	background: url(../images/next.png) right center no-repeat;
+	background: url(img/next.png) right center no-repeat;
 }

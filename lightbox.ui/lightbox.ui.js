@@ -1,6 +1,6 @@
 (function($) {
 
-	$.fn.samBox = function(options) {
+	$.fn.lightboxUi = function(options) {
 		// SET DEFAULT OPTIONS
 		var defaults = {
                 aniDuration: 300,
@@ -24,7 +24,7 @@
 			var isOpen = lbId.dialog("isOpen");
 			if(isOpen === true) {
 				lbId.dialog({ position: {my: "center", at: "center"}});
-				}
+			}
 		});
 		
 		lbId.remove();
@@ -155,6 +155,3 @@
 		});
 	};
 }(jQuery));
-
-// Usage example:
-$(".lightbox").samBox();
