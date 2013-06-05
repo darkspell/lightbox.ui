@@ -27,8 +27,8 @@
     ],
     "bugs": "https://github.com/ochorocho/lightbox.ui/issues",
     "homepage": "https://github.com/ochorocho/lightbox.ui",
-    "docs": "https://github.com/ochorocho/lightbox.ui",
-    "download": "https://github.com/ochorocho/lightbox.ui",
+    "docs": "https://github.com/ochorocho/lightbox.ui/wiki",
+    "download": "https://codeload.github.com/ochorocho/lightbox.ui/zip/master",
     "dependencies": {
         "jquery": ">=1.9.1",
         "jqueryui": ">=1.9.2"
