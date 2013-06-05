@@ -22,13 +22,13 @@
     "licenses": [
         {
             "type": "MIT",
-            "url": "https://github.com/jquery/jquery-color/blob/2.1.2/MIT-LICENSE.txt"
+            "url": "https://github.com/ochorocho/lightbox.ui/blob/master/README.md"
         }
     ],
-    "bugs": "https://github.com/jquery/jquery-color/issues",
-    "homepage": "https://github.com/jquery/jquery-color",
-    "docs": "https://github.com/jquery/jquery-color",
-    "download": "http://code.jquery.com/#color",
+    "bugs": "https://github.com/ochorocho/lightbox.ui/issues",
+    "homepage": "https://github.com/ochorocho/lightbox.ui",
+    "docs": "https://github.com/ochorocho/lightbox.ui",
+    "download": "https://github.com/ochorocho/lightbox.ui",
     "dependencies": {
         "jquery": ">=1.9.1",
         "jqueryui": ">=1.9.2"
