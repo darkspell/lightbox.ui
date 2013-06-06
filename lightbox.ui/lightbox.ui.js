@@ -59,15 +59,17 @@
 			caption += '</div>';
 			
 			if(prevId !== 0) {
-				var prevLink = '<a id="prevLink" href="#"></a>';
+				var prevLink = '<a id="prevLink" href="#"><div class="arrow"><div class="arrowInner"></div></div></a>';
 			} else {
 				prevLink = '';
 			}
 			if(nextId <= imgCount) {
-				var nextLink = '<a id="nextLink" href="#"></a>';
+				var nextLink = '<a id="nextLink" href="#"><div class="arrow"><div class="arrowInner"></div></div></a>';
 			} else {
 				nextLink = '';
 			}
+			
+			
 			// THROW IN CAPTION and LINKS
 			lbId.html(prevLink + nextLink + caption);
 					
@@ -90,7 +92,7 @@
 				var paddingBottom = $('.ui-dialog-content').css('padding-bottom').replace('px','');
 				var paddingLeft = $('.ui-dialog-content').css('padding-left').replace('px','');
 				
-				var width = Math.round(paddingLeft/100) + w + Math.round(paddingRight/100) + 27;
+				var width = Math.round(paddingLeft/100) + w + Math.round(paddingRight/100) + 40;
 				var height = Math.round(paddingTop/100) + h + captionH + Math.round(paddingBottom/100) + 13;
 				
 				$(lbId).parent('.ui-dialog').animate({width: width, height: height},{
