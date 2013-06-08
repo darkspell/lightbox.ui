@@ -56,7 +56,7 @@
 
 #nextLink .arrowInner, #nextLink .arrow, #prevLink .arrowInner, #prevLink .arrow {
 	position: absolute;
-	width: 39px;
+	width: 40px;
 	height: 40px;
 	right: 0px;
 	transform: rotate(45deg);
@@ -68,11 +68,11 @@
 	left: 0px !important;
 }
 
-#prevLink .arrowInner, #nextLink .arrow {
+#prevLink .arrow, #nextLink .arrow {
 	visibility: hidden;
 }
 
-#prevLink:hover .arrowInner, #nextLink:hover .arrow {
+#prevLink:hover .arrow, #nextLink:hover .arrow {
 	visibility:visible;
 }
 
@@ -82,10 +82,11 @@
 	right: 0px;
 	margin-top: -44px;
 	height: 100px;
-	width: 20px;
+	width: 18px;
 	overflow: hidden !important;
 	transform: rotate(0deg);
 	-webkit-transform: rotate(0deg);
+	background: none !important;
 }
 
 #nextLink .arrowInner, #prevLink .arrowInner {

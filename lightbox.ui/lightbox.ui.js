@@ -24,8 +24,26 @@
 			var isOpen = lbId.dialog("isOpen");
 			if(isOpen === true) {
 				lbId.dialog({ position: {my: "center", at: "center"}});
+
+
+				var width = $(lbId).outerWidth();
+				var height = $(lbId).outerHeight();
+				
+				// diaSize(width,height);
 			}
-		});
+		});		
+
+
+		// WINDOW SIZE 
+		function diaSize(width,height) {
+			
+			var wWidth = $(window).width();
+		    var dWidth = wWidth * 0.9;
+		    var wHeight = $(window).height();
+		    var dHeight = wHeight * 0.9;
+						
+		}
+
 		
 		lbId.remove();
 		lbId.on("dialogopen", function(event, ui) {
@@ -95,7 +113,38 @@
 				var width = Math.round(paddingLeft/100) + w + Math.round(paddingRight/100) + 40;
 				var height = Math.round(paddingTop/100) + h + captionH + Math.round(paddingBottom/100) + 13;
 				
-				$(lbId).parent('.ui-dialog').animate({width: width, height: height},{
+				// diaSize(width,height);
+				
+				var wWidth = $(window).width();
+			    var wHeight = $(window).height();
+
+				
+				if(width > wWidth) {
+					var diaWidth = (wWidth - o.padding) * 0.99;
+					var imgWidth = diaWidth - o.padding * 2;
+					$(lbId).find('img').css('width', imgWidth);
+					
+					var diaHeight = $(lbId).find('img').height() + captionH + parseInt(paddingBottom) + parseInt(paddingTop);
+					var imgHeight = $(lbId).find('img').css('height').replace('px','');
+					$(lbId).find('img').css('height', imgHeight);
+					console.log(diaHeight,imgHeight,captionH);
+				} else {
+					var diaWidth = width;
+					var diaHeight = height + parseInt(paddingBottom);
+				}
+
+/*
+				if(height > wHeight) {
+					var diaHeight = (wHeight - o.padding) * 0.99;
+					var imgHeight = (diaHeight - captionH) * 0.94;
+					$(lbId).find('img').css('height', imgHeight);
+				}
+*/
+				
+				//var diaHeight = (wHeight - o.padding) * 0.99;
+				
+				
+				$(lbId).parent('.ui-dialog').animate({width: diaWidth, height: diaHeight},{
 					duration: aniDuration,
 					step: function(){
 						lbId.dialog({ position: { my: "center", at: "center" } });
@@ -125,6 +174,7 @@
 				lbId.html('Failed!');
 			}).attr('src', href);
 		}
+		
 		
 		// WORK ON EACH SELECTED ELEMENT
 		return this.filter("a").each(function(i) {
