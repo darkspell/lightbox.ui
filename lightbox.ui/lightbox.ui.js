@@ -123,48 +123,50 @@
 				var diaHeight = height;
 				
 				var calcW = parseInt(wWidth - diaWidth);
-				var calcH = parseInt(wHeight - diaHeight);
-				
-				
-/*
-				if(w > h) {
-					var sizeFactor =  parseInt(h) / parseInt(w);	
-				} else if(h > w) {
-					var sizeFactor =  parseInt(w) / parseInt(h);	
-				}
-*/
-				
-				
+				var calcH = parseInt(wHeight - diaHeight);				
 
 				
 				if(diaWidth > wWidth || diaHeight > wHeight) {
-					if(calcW < calcH) {
-						var diaWidth = wWidth - o.padding - 4;
-						var resizeImgW = wWidth - o.padding * 3 - 4;
-						var resizeImgH = resizeImgW * sizeFactor;
-						$(lbId).find('img').css('width', resizeImgW).css('height', resizeImgH);
-						var diaHeight = resizeImgH + captionH + paddingTop + paddingBottom;
-					}
-					if(calcW > calcH) {
-
-						$(lbCaption).css('width', resizeImgW + 'px');
-						var captionH = 80;
+					if(calcW > calcH || calcW < calcH) {
 						
-						var resizeImgH = wHeight - captionH - captionH - paddingTop - paddingBottom;
-						var diaHeight = wHeight - captionH - paddingTop + paddingBottom;						
+						if(w > h) {
+							var sizeFactor =  parseInt(w) / parseInt(h);
+							var diaHeight = wHeight - captionH - paddingTop + paddingBottom;
+							var resizeImgH = wHeight - captionH - captionH - paddingTop - paddingBottom;
+							var resizeImgW = resizeImgH * sizeFactor;
+							$(lbId).find('img').css('width', resizeImgW).css('height', resizeImgH);
+							var diaWidth = resizeImgW + o.padding * 2;
+							console.log('1 1 1 1 1 1 1 1');
+						} else if(h > w) {
 
-						var sizeFactor =  parseInt(w) / parseInt(h);
-						var resizeImgW = resizeImgH * sizeFactor;
+
+							
+							var sizeFactor =   parseInt(w) / parseInt(h);
+							var resizeImgH = wHeight - captionH - captionH - paddingTop - paddingBottom;
+							var resizeImgW = resizeImgH * sizeFactor;
+
+							$(lbCaption).css('width', resizeImgW + 'px');
+							var captionH = parseInt(lbCaption.outerHeight());
+
+							var resizeImgH = wHeight - captionH - paddingTop - paddingBottom;
+							var resizeImgW = resizeImgH * sizeFactor;
+							var diaHeight = resizeImgH + captionH + paddingTop + paddingBottom;
+
+							console.log(captionH);
 
 
-						var diaWidth = resizeImgW + o.padding * 2;
-						$(lbId).find('img').css('width', resizeImgW).css('height', resizeImgH);
-						
-						console.log(calcW,calcH + ' captionH ' + captionH);
+
+							$(lbId).find('img').css('width', resizeImgW).css('height', resizeImgH);
+							var diaWidth = resizeImgW + o.padding * 2;
+							console.log('2 2 2 2 2 2 2 2 2');
+						}
+						// console.log(calcW,calcH + ' FACTOR ' + sizeFactor);
 						
 					}
 				} else if (diaWidth < wWidth || diaHeight < wHeight) {
-					console.log('bild ' + diaWidth,diaHeight + ' < fenster ' + wWidth,wHeight);
+					//console.log('bild ' + diaWidth,diaHeight + ' < fenster ' + wWidth,wHeight);
+					console.log('bild < fenster');
+					console.log(captionH);
 				}				
 								
 				
