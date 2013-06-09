@@ -127,34 +127,30 @@
 
 				
 				if(diaWidth > wWidth || diaHeight > wHeight) {
+/*
 					if(calcW > calcH || calcW < calcH) {
 						
 						if(w > h) {
-							var sizeFactor =  parseInt(w) / parseInt(h);
+							var sizeFactor =  parseInt(h) / parseInt(w);
 							var diaHeight = wHeight - captionH - paddingTop + paddingBottom;
-							var resizeImgH = wHeight - captionH - captionH - paddingTop - paddingBottom;
-							var resizeImgW = resizeImgH * sizeFactor;
+							var resizeImgW = wWidth - paddingLeft - paddingRight;
+							var resizeImgH = resizeImgW * sizeFactor;
+							var diaHeight = resizeImgH + captionH + paddingTop + paddingBottom;
+							
 							$(lbId).find('img').css('width', resizeImgW).css('height', resizeImgH);
 							var diaWidth = resizeImgW + o.padding * 2;
 							console.log('1 1 1 1 1 1 1 1');
 						} else if(h > w) {
 
-
-							
 							var sizeFactor =   parseInt(w) / parseInt(h);
 							var resizeImgH = wHeight - captionH - captionH - paddingTop - paddingBottom;
 							var resizeImgW = resizeImgH * sizeFactor;
-
 							$(lbCaption).css('width', resizeImgW + 'px');
 							var captionH = parseInt(lbCaption.outerHeight());
 
 							var resizeImgH = wHeight - captionH - paddingTop - paddingBottom;
 							var resizeImgW = resizeImgH * sizeFactor;
 							var diaHeight = resizeImgH + captionH + paddingTop + paddingBottom;
-
-							console.log(captionH);
-
-
 
 							$(lbId).find('img').css('width', resizeImgW).css('height', resizeImgH);
 							var diaWidth = resizeImgW + o.padding * 2;
@@ -163,8 +159,109 @@
 						// console.log(calcW,calcH + ' FACTOR ' + sizeFactor);
 						
 					}
+*/
+					var imgFactor =  parseInt(w) / parseInt(h);
+					var wFactor =  parseInt(wWidth) / parseInt(wHeight);
+
+					var diaOverflowW = wWidth / diaWidth;
+					var diaOverflowH = wHeight / diaHeight;
+					
+					console.log('W: ' + diaOverflowW + ' H: ' + diaOverflowH)
+					
+					if(diaOverflowW > diaOverflowH) {
+						var sizeFactor =   parseInt(w) / parseInt(h);
+						var resizeImgH = wHeight - captionH - captionH - paddingTop - paddingBottom;
+						var resizeImgW = resizeImgH * sizeFactor;
+						$(lbCaption).css('width', resizeImgW + 'px');
+						var captionH = parseInt(lbCaption.outerHeight());
+
+						var resizeImgH = wHeight - captionH - paddingTop - paddingBottom;
+						var resizeImgW = resizeImgH * sizeFactor;
+						var diaHeight = resizeImgH + captionH + paddingTop + paddingBottom;
+
+						$(lbId).find('img').css('width', resizeImgW).css('height', resizeImgH);
+						var diaWidth = resizeImgW + o.padding * 2;
+						console.log('RESIZE height');
+					} else if(diaOverflowW < diaOverflowH) {
+						var sizeFactor =  parseInt(h) / parseInt(w);
+						var diaHeight = wHeight - captionH - paddingTop + paddingBottom;
+						var resizeImgW = wWidth - paddingLeft - paddingRight;
+						var resizeImgH = resizeImgW * sizeFactor;
+						var diaHeight = resizeImgH + captionH + paddingTop + paddingBottom;
+						
+						$(lbId).find('img').css('width', resizeImgW).css('height', resizeImgH);
+						var diaWidth = resizeImgW + o.padding * 2;
+						console.log('RESIZE width');
+					}
+					
+					
+/*
+					// DETECT IMAGE ORIENTATION
+					if(imgFactor >= 1) {
+						var imgOrient = 'horizontal';
+					} else if(imgFactor < 1) {
+						var imgOrient = 'vertical';
+					}
+					// DETECT WINDOW ORIENTATION					
+					if(wFactor >= 1) {
+						var wOrient = 'horizontal'
+					} else if(wFactor < 1) {
+						var wOrient = 'vertical'
+					}
+					
+					console.log('Bild: ' + imgOrient);
+					console.log('Fenster: ' + wOrient);
+					console.log(wFactor + '############################');
+
+					if(imgOrient == 'horizontal' && wOrient == 'horizontal') {
+						var sizeFactor =  parseInt(h) / parseInt(w);
+						var diaHeight = wHeight - captionH - paddingTop + paddingBottom;
+						var resizeImgW = wWidth - paddingLeft - paddingRight;
+						var resizeImgH = resizeImgW * sizeFactor;
+						var diaHeight = resizeImgH + captionH + paddingTop + paddingBottom;
+						
+						$(lbId).find('img').css('width', resizeImgW).css('height', resizeImgH);
+						var diaWidth = resizeImgW + o.padding * 2;
+					} else if(imgOrient == 'vertical' && wOrient == 'vertical') {
+						var sizeFactor =   parseInt(w) / parseInt(h);
+						var resizeImgH = wHeight - captionH - captionH - paddingTop - paddingBottom;
+						var resizeImgW = resizeImgH * sizeFactor;
+						$(lbCaption).css('width', resizeImgW + 'px');
+						var captionH = parseInt(lbCaption.outerHeight());
+
+						var resizeImgH = wHeight - captionH - paddingTop - paddingBottom;
+						var resizeImgW = resizeImgH * sizeFactor;
+						var diaHeight = resizeImgH + captionH + paddingTop + paddingBottom;
+
+						$(lbId).find('img').css('width', resizeImgW).css('height', resizeImgH);
+						var diaWidth = resizeImgW + o.padding * 2;						
+					} else if(imgOrient == 'vertical' && wOrient == 'horizontal') {
+						var sizeFactor =   parseInt(w) / parseInt(h);
+						var resizeImgH = wHeight - captionH - captionH - paddingTop - paddingBottom;
+						var resizeImgW = resizeImgH * sizeFactor;
+						$(lbCaption).css('width', resizeImgW + 'px');
+						var captionH = parseInt(lbCaption.outerHeight());
+
+						var resizeImgH = wHeight - captionH - paddingTop - paddingBottom;
+						var resizeImgW = resizeImgH * sizeFactor;
+						var diaHeight = resizeImgH + captionH + paddingTop + paddingBottom;
+
+						$(lbId).find('img').css('width', resizeImgW).css('height', resizeImgH);
+						var diaWidth = resizeImgW + o.padding * 2;						
+						
+					} else if(imgOrient == 'horizontal' && wOrient == 'vertical') {
+						var sizeFactor =  parseInt(h) / parseInt(w);
+						var diaHeight = wHeight - captionH - paddingTop + paddingBottom;
+						var resizeImgW = wWidth - paddingLeft - paddingRight;
+						var resizeImgH = resizeImgW * sizeFactor;
+						var diaHeight = resizeImgH + captionH + paddingTop + paddingBottom;
+						
+						$(lbId).find('img').css('width', resizeImgW).css('height', resizeImgH);
+						var diaWidth = resizeImgW + o.padding * 2;
+					}
+*/
+
 				} else if (diaWidth < wWidth || diaHeight < wHeight) {
-					//console.log('bild ' + diaWidth,diaHeight + ' < fenster ' + wWidth,wHeight);
 					console.log('bild < fenster');
 					console.log(captionH);
 				}				
