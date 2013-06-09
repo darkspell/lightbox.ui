@@ -102,47 +102,71 @@
 				var h = $(this).outerHeight();
 				var lbCaption = $("#lbCaption");				
 				lbCaption.css('width', w + 'px').hide();
-				var captionH = lbCaption.outerHeight();
+				var captionH = parseInt(lbCaption.outerHeight());
 				
 				// CALC PADDINGS
-				var paddingTop = $('.ui-dialog-content').css('padding-top').replace('px','');
-				var paddingRight = $('.ui-dialog-content').css('padding-right').replace('px','');
-				var paddingBottom = $('.ui-dialog-content').css('padding-bottom').replace('px','');
-				var paddingLeft = $('.ui-dialog-content').css('padding-left').replace('px','');
+				var paddingTop = parseInt($('.ui-dialog-content').css('padding-top').replace('px',''));
+				var paddingRight = parseInt($('.ui-dialog-content').css('padding-right').replace('px',''));
+				var paddingBottom = parseInt($('.ui-dialog-content').css('padding-bottom').replace('px',''));
+				var paddingLeft = parseInt($('.ui-dialog-content').css('padding-left').replace('px',''));
+								
+				var width =  paddingLeft + parseInt(w) + paddingRight + 4;
+				var height = paddingTop + parseInt(h) + captionH + paddingBottom;
 				
-				var width = Math.round(paddingLeft/100) + w + Math.round(paddingRight/100) + 40;
-				var height = Math.round(paddingTop/100) + h + captionH + Math.round(paddingBottom/100) + 13;
-				
+				//console.log(paddingTop,h,captionH,paddingBottom,height);
 				// diaSize(width,height);
 				
 				var wWidth = $(window).width();
 			    var wHeight = $(window).height();
 
+				var diaWidth = width;
+				var diaHeight = height;
 				
-				if(width > wWidth) {
-					var diaWidth = (wWidth - o.padding) * 0.99;
-					var imgWidth = diaWidth - o.padding * 2;
-					$(lbId).find('img').css('width', imgWidth);
-					
-					var diaHeight = $(lbId).find('img').height() + captionH + parseInt(paddingBottom) + parseInt(paddingTop);
-					var imgHeight = $(lbId).find('img').css('height').replace('px','');
-					$(lbId).find('img').css('height', imgHeight);
-					console.log(diaHeight,imgHeight,captionH);
-				} else {
-					var diaWidth = width;
-					var diaHeight = height + parseInt(paddingBottom);
-				}
-
+				var calcW = parseInt(wWidth - diaWidth);
+				var calcH = parseInt(wHeight - diaHeight);
+				
+				
 /*
-				if(height > wHeight) {
-					var diaHeight = (wHeight - o.padding) * 0.99;
-					var imgHeight = (diaHeight - captionH) * 0.94;
-					$(lbId).find('img').css('height', imgHeight);
+				if(w > h) {
+					var sizeFactor =  parseInt(h) / parseInt(w);	
+				} else if(h > w) {
+					var sizeFactor =  parseInt(w) / parseInt(h);	
 				}
 */
 				
-				//var diaHeight = (wHeight - o.padding) * 0.99;
 				
+
+				
+				if(diaWidth > wWidth || diaHeight > wHeight) {
+					if(calcW < calcH) {
+						var diaWidth = wWidth - o.padding - 4;
+						var resizeImgW = wWidth - o.padding * 3 - 4;
+						var resizeImgH = resizeImgW * sizeFactor;
+						$(lbId).find('img').css('width', resizeImgW).css('height', resizeImgH);
+						var diaHeight = resizeImgH + captionH + paddingTop + paddingBottom;
+					}
+					if(calcW > calcH) {
+
+						$(lbCaption).css('width', resizeImgW + 'px');
+						var captionH = 80;
+						
+						var resizeImgH = wHeight - captionH - captionH - paddingTop - paddingBottom;
+						var diaHeight = wHeight - captionH - paddingTop + paddingBottom;						
+
+						var sizeFactor =  parseInt(w) / parseInt(h);
+						var resizeImgW = resizeImgH * sizeFactor;
+
+
+						var diaWidth = resizeImgW + o.padding * 2;
+						$(lbId).find('img').css('width', resizeImgW).css('height', resizeImgH);
+						
+						console.log(calcW,calcH + ' captionH ' + captionH);
+						
+					}
+				} else if (diaWidth < wWidth || diaHeight < wHeight) {
+					console.log('bild ' + diaWidth,diaHeight + ' < fenster ' + wWidth,wHeight);
+				}				
+								
 				
 				$(lbId).parent('.ui-dialog').animate({width: diaWidth, height: diaHeight},{
 					duration: aniDuration,
