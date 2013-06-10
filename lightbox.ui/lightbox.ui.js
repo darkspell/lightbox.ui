@@ -7,7 +7,8 @@
                 padding: 20,
                 id: 'lightbox',
                 fadeTime: 200,
-                margin:  0.90
+                margin:  0.90,
+                btClose: 0,
         };
 		
 		// LOAD OPTIONS
@@ -25,14 +26,9 @@
 			var isOpen = lbId.dialog("isOpen");
 			if(isOpen === true) {
 				lbId.dialog({ position: {my: "center", at: "center"}});
-
-				var width = $(lbId).outerWidth();
-				var height = $(lbId).outerHeight();
-				
 			}
 		});		
 
-		
 		lbId.remove();
 		lbId.on("dialogopen", function(event, ui) {
 			var isOpen = $(lbId).dialog("isOpen");
@@ -74,11 +70,10 @@
 			} else {
 				nextLink = '';
 			}
-			
-			
+						
 			// THROW IN CAPTION and LINKS
 			lbId.html(prevLink + nextLink + caption);
-					
+				
 			// CREATE AND LOAD IMAGE
 			var img = new Image();
 			$(img).load(function () {
@@ -163,18 +158,45 @@
 					}
 				});
 				$(this).delay(aniDuration).fadeIn(fade);
+				
+				var lbRight = $(lbId).offset().right;
+				var lbTop = $(lbId).offset().right;
+
+				console.log(lbRight, lbTop);
+
+				if(o.btClose == 1) {
+					$(lbId).parent().before('<a id="lbClose">&nbsp;</a>');	
+				}
 
 				// CALL PREV/NEXT
 				$("#prevLink").on('click', function(e) {
 					e.preventDefault();
 					var prevImg = currNum[0] + '_' + prevId;
 					imageLoad(prevImg);
+
+					if(o.btClose == 1) {
+						$('#lbClose').remove();
+					}
 				});	
 				$("#nextLink").on('click', function(e) {
 					e.preventDefault();
 					var nextImg = currNum[0] + '_' + nextId;
 					imageLoad(nextImg);
+
+					if(o.btClose == 1) {
+						$('#lbClose').remove();
+					}
 				});
+				
+				$('#lbClose').on('click', function() {
+					lbId.dialog("close");
+
+					if(o.btClose == 1) {
+						$('#lbClose').remove();
+					}
+				});
+				
+				
 			}).error(function () {
 				
 				// HANDLE ERROR WHILE LOADING
@@ -182,7 +204,6 @@
 				lbId.html('Failed!');
 			}).attr('src', href);
 		}
-		
 		
 		// WORK ON EACH SELECTED ELEMENT
 		return this.filter("a").each(function(i) {
@@ -205,12 +226,16 @@
 					minHeight: 80,
 					width: 80
 				});
-				
+								
 				// MAKE OVERLAY CLOSE LIGHTBOX ON CLICK
 				$('.ui-widget-overlay').on("click", function() {
 					lbId.dialog("close");
+					
+					if(o.btClose == 1) {
+						$('#lbClose').remove();
+					}
 					var isOpen = lbId.dialog("isOpen");
-				});
+				});				
 			});
 		});
 	};
