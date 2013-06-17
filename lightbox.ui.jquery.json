@@ -1,11 +1,12 @@
 {
     "name": "lightbox.ui",
     "title": "jQueryUi lighbox.ui",
-    "description": "jQueryUi plugin to display a simple Lightbox",
+    "description": "jQueryUi plugin to display a simple Lightbox. This plugin is built to work with TYPO3",
     "keywords": [
         "lightbox",
         "animation",
-        "dialog"
+        "dialog",
+        "TYPO3"
     ],
     "version": "0.0.11",
     "author": {

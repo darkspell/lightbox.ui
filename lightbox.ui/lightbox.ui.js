@@ -9,6 +9,7 @@
                 fadeTime: 200,
                 margin:  0.90,
                 btClose: 0,
+                scope: 'block'
         };
 		
 		// LOAD OPTIONS
@@ -36,11 +37,37 @@
 		// LOAD IMAGE FUNCTION
 		function imageLoad(imgId) {
 			$('body').append('<div id="lbLoading"></div>');
-
-			var currNum = imgId.split('_');
-			var prevId = currNum[1] - 1;
-			var nextId = parseInt(currNum[1],10) + 1;
-			imgId = '#' + imgId;
+			
+			var imgId = imgId;
+			
+			console.log('ID: ' + imgId);
+			
+			if($.isNumeric(imgId)) {
+				var currNum = imgId;
+				var prevId = currNum - 1;
+				var nextId = currNum + 1;
+				imgId = '#' + $('[id $=' + '_' + imgId +']').attr('id');
+			} else {
+				var currNum = imgId.split('_');
+				var prevId = currNum[1] - 1;
+				var nextId = parseInt(currNum[1],10) + 1;
+				imgId = '#' + imgId;
+			}
+			
+			console.log('CURRENT: ' + currNum);
+			
+			console.log('PREV/NEXT: ' + prevId,nextId);
+			
+			if(o.scope == 'block') {
+				var prevCheck = '#' + currNum[0] + '_' + prevId;
+				var nextCheck = '#' + currNum[0] + '_' + nextId;
+			} else if(o.scope == 'all') {				
+				var prevCheck = '#' + $('[id $=' + '_' + prevId +']').attr('id');
+				var nextCheck = '#' + $('[id $=' + '_' + nextId +']').attr('id');
+				var imgTest = $('[id $=' + '_' + nextId +']').attr('href');
+				console.log(prevId,nextId, imgTest);
+				console.log(prevCheck,imgId,nextCheck)
+			}			
 			
 			// SETTING VARIABLES
 			var href = $(imgId).attr('href');
@@ -60,16 +87,17 @@
 			caption += '<div id="lbAlt">' +  alt + '</div></div>';
 			caption += '</div>';
 			
-			if(prevId !== 0) {
+			if($(prevCheck).length) {
 				var prevLink = '<a id="prevLink" href="#"><div class="arrow"><div class="arrowInner"></div></div></a>';
+				
 			} else {
 				prevLink = '';
 			}
-			if(nextId <= imgCount) {
+			if($(nextCheck).length) {
 				var nextLink = '<a id="nextLink" href="#"><div class="arrow"><div class="arrowInner"></div></div></a>';
 			} else {
 				nextLink = '';
-			}
+			}				
 						
 			// THROW IN CAPTION and LINKS
 			lbId.html(prevLink + nextLink + caption);
@@ -87,7 +115,6 @@
 				lbCaption.css('width', w + 'px').hide();
 				var captionH = parseInt(lbCaption.outerHeight());
 				
-				// CALC PADDINGS
 				var paddingTop = parseInt($('.ui-dialog-content').css('padding-top').replace('px',''));
 				var paddingRight = parseInt($('.ui-dialog-content').css('padding-right').replace('px',''));
 				var paddingBottom = parseInt($('.ui-dialog-content').css('padding-bottom').replace('px',''));
@@ -107,7 +134,7 @@
 					var diaOverflowW = wWidth / diaWidth;
 					var diaOverflowH = wHeight / diaHeight;
 					
-					console.log('W: ' + diaOverflowW + ' H: ' + diaOverflowH)
+					//console.log('W: ' + diaOverflowW + ' H: ' + diaOverflowH)
 					
 					// RESIZE IMAGE DEPENDING ON 
 					if(diaOverflowW > diaOverflowH) {
@@ -124,7 +151,7 @@
 						var diaHeight = (resizeImgH * o.margin) + captionH + paddingTop + paddingBottom;
 						$(lbId).find('img').css('width', resizeImgW * o.margin).css('height', resizeImgH * o.margin);
 						var diaWidth = (resizeImgW * o.margin) + o.padding * 2;
-						console.log('RESIZE height');
+						//console.log('RESIZE height');
 					} else if(diaOverflowW < diaOverflowH) {
 						var sizeFactor =  parseInt(h) / parseInt(w);
 						var resizeImgW = wWidth - paddingLeft - paddingRight;
@@ -139,12 +166,12 @@
 						var diaHeight = resizeImgH + captionH + paddingTop + paddingBottom;
 						$(lbId).find('img').css('width', resizeImgW).css('height', resizeImgH);
 						var diaWidth = resizeImgW + o.padding * 2;
-						console.log('RESIZE width');
+						//console.log('RESIZE width');
 					}
 					
 				} else if (diaWidth < wWidth || diaHeight < wHeight) {
-					console.log('bild < fenster');
-					console.log(captionH);
+					//console.log('bild < fenster');
+					//console.log(captionH);
 				}				
 								
 				$(lbId).parent('.ui-dialog').animate({width: diaWidth, height: diaHeight},{
@@ -162,7 +189,7 @@
 				var lbRight = $(lbId).offset().right;
 				var lbTop = $(lbId).offset().right;
 
-				console.log(lbRight, lbTop);
+				//console.log(lbRight, lbTop);
 
 				if(o.btClose == 1) {
 					$(lbId).parent().before('<a id="lbClose">&nbsp;</a>');	
@@ -171,7 +198,12 @@
 				// CALL PREV/NEXT
 				$("#prevLink").on('click', function(e) {
 					e.preventDefault();
-					var prevImg = currNum[0] + '_' + prevId;
+
+					if(o.scope == 'block') {
+						var prevImg = currNum[0] + '_' + prevId;
+					} else if(o.scope == 'all') {				
+						var prevImg = prevId;
+					}
 					imageLoad(prevImg);
 
 					if(o.btClose == 1) {
@@ -180,7 +212,12 @@
 				});	
 				$("#nextLink").on('click', function(e) {
 					e.preventDefault();
-					var nextImg = currNum[0] + '_' + nextId;
+
+					if(o.scope == 'block') {
+						var nextImg = currNum[0] + '_' + nextId;
+					} else if(o.scope == 'all') {				
+						var nextImg = nextId;
+					}
 					imageLoad(nextImg);
 
 					if(o.btClose == 1) {
@@ -188,6 +225,7 @@
 					}
 				});
 				
+				// CLOSE BUTTON
 				$('#lbClose').on('click', function() {
 					lbId.dialog("close");
 
@@ -195,7 +233,6 @@
 						$('#lbClose').remove();
 					}
 				});
-				
 				
 			}).error(function () {
 				
@@ -206,12 +243,16 @@
 		}
 		
 		// WORK ON EACH SELECTED ELEMENT
-		return this.filter("a").each(function(i) {
+		var i = 0;
+		return this.filter("a.lightbox").each(function() {
 			
 			// SET ID FOR EACH LINK
-			i = ++i;
-			var currId = $(this).attr('id');
-			$(this).attr('id', currId + '_' + i);
+			if($(this).attr('id') !== undefined){
+				i = ++i;
+				var currId = $(this).attr('id');
+				$(this).attr('id', currId + '_' + i);
+			}
+
 			
 			// CLICK HANDLER OPEN LIGHTBOX
 			$(this).bind('click', function(e) {
