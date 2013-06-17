@@ -8,7 +8,7 @@
         "dialog",
         "TYPO3"
     ],
-    "version": "0.0.12",
+    "version": "0.0.13",
     "author": {
         "name": "Jochen Roth - sam.agentur",
         "url": "https://github.com/ochorocho/lightbox.ui"
