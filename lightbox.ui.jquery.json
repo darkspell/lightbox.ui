@@ -28,6 +28,7 @@
     ],
     "bugs": "https://github.com/ochorocho/lightbox.ui/issues",
     "homepage": "https://github.com/ochorocho/lightbox.ui",
+    "demo": "https://rawgithub.com/ochorocho/lightbox.ui/master/index.html",
     "docs": "https://github.com/ochorocho/lightbox.ui/wiki",
     "download": "https://codeload.github.com/ochorocho/lightbox.ui/zip/master",
     "dependencies": {
