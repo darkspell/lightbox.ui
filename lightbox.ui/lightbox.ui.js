@@ -12,6 +12,15 @@
                 scope: 'block'
         };
 		
+		// KEYBOARD SHORTCUTS FOR PREV/NEXT
+		$('body').keyup(function (event) {
+			if (event.keyCode == 37) {
+				$("#prevLink").click();
+			} else if (event.keyCode == 39) {
+				$("#nextLink").click();
+			}
+		});
+
 		// LOAD OPTIONS
 		var o = $.extend(defaults, options);
 		var fade = o.fadeTime;
